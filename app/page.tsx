@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { Header } from './components/header';
 import { SIGN_IN_GOOGLE_URL } from '@/utils/constant';
+import { Header } from './components/header';
 
 export default function Home() {
   return (
