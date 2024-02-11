@@ -28,3 +28,16 @@ export function useGetJWTToken(): JWTToken | null {
 
   return token;
 }
+
+export function useIsAuthenticated(): boolean {
+  const token = useGetJWTToken();
+  return Boolean(token?.access_token?.length);
+}
+
+export function useProtectedRoute(callback?: () => any) {
+  useEffect(() => {
+    const tokenString = window.localStorage.getItem(LS_KEY);
+    const token: JWTToken = JSON.parse(tokenString ?? '{}');
+    if (!token?.access_token?.length && callback) callback();
+  }, []);
+}

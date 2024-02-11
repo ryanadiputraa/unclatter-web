@@ -1,10 +1,15 @@
+'use client';
+
+import { useProtectedRoute } from '@/hooks/useAuth';
 import { Header } from '../components/header';
+import { redirect } from 'next/navigation';
 
 export default function Article() {
+  useProtectedRoute(() => redirect('/'));
+
   return (
-    // TODO: isAuthenticated
     <>
-      <Header isAuthenticated={true} />
+      <Header />
       <main className="max-w-4xl mx-auto flex flex-col justify-start pt-10">
         <form className="flex gap-4 items-center justify-center">
           <input

@@ -2,13 +2,12 @@
 
 import Link from 'next/link';
 
+import { useIsAuthenticated } from '@/hooks/useAuth';
 import { SIGN_IN_GOOGLE_URL } from '@/utils/constant';
 
-interface Props {
-  isAuthenticated: boolean;
-}
+export function Header() {
+  const isAuthenticated = useIsAuthenticated();
 
-export function Header({ isAuthenticated }: Props) {
   const signOut = () => {
     // TODO: remove cookie & redirect
   };
