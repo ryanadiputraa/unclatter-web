@@ -18,7 +18,7 @@ export default function Home() {
               Effortlessly bookmark articles, say Goodbye to ads, and enjoy your reading
             </span>
             {/* TODO: authenticated */}
-            <Link href={true ? '/article' : SIGN_IN_GOOGLE_URL}>
+            <Link href={false ? '/article' : SIGN_IN_GOOGLE_URL}>
               <button className="px-4 py-2 border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark">
                 Get Started
               </button>
