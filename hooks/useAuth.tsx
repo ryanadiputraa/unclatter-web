@@ -7,7 +7,7 @@ export interface JWTToken {
   expires_at: string;
 }
 
-const LS_KEY = 'auth';
+export const LS_KEY = 'auth';
 
 export function useStoreJWTToken(token: JWTToken, callback?: () => any) {
   useEffect(() => {

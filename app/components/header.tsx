@@ -1,16 +1,28 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import { useIsAuthenticated } from '@/hooks/useAuth';
+import { LS_KEY, useIsAuthenticated } from '@/hooks/useAuth';
 import { SIGN_IN_GOOGLE_URL } from '@/utils/constant';
 
 export function Header() {
   const isAuthenticated = useIsAuthenticated();
+  const pathname = usePathname();
+  const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
 
   const signOut = () => {
-    // TODO: remove cookie & redirect
+    if (!isMounted) return;
+    window.localStorage.removeItem(LS_KEY);
+    console.log(isMounted);
+    router.push('/');
   };
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <header className="flex justify-between items-center px-[4%] sm:px-8 py-4 border-secondary border-b-[0.02rem]">
@@ -19,17 +31,27 @@ export function Header() {
         <h1 className="text-xl font-bold">UnClatter</h1>
       </Link>
       <div className="text-sm">
-        {}
-        <Link href={isAuthenticated ? '/article' : SIGN_IN_GOOGLE_URL} className="px-4 py-2 ">
-          <button className="border-b-2 border-transparent hover:border-secondary">Sign In</button>
-        </Link>
-        {!isAuthenticated && (
-          <a
-            href={SIGN_IN_GOOGLE_URL}
+        {pathname === '/' ? (
+          <>
+            <Link href={isAuthenticated ? '/article' : SIGN_IN_GOOGLE_URL} className="px-4 py-2 ">
+              <button className="border-b-2 border-transparent hover:border-secondary">Sign In</button>
+            </Link>
+            {!isAuthenticated && (
+              <Link
+                href={SIGN_IN_GOOGLE_URL}
+                className="px-4 py-2 border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
+              >
+                <button>Sign Up</button>
+              </Link>
+            )}
+          </>
+        ) : (
+          <button
+            onClick={signOut}
             className="px-4 py-2 border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
           >
-            <button>Sign Up</button>
-          </a>
+            Sign Out
+          </button>
         )}
       </div>
     </header>
