@@ -1,0 +1,14 @@
+p,
+blockquote,
+pre,
+code,
+var {
+  margin: 0.5rem 0;
+}
+
+code,
+var {
+  background-color: #828181;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+}
