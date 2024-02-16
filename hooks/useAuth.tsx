@@ -1,5 +1,6 @@
 'use client';
 
+import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export interface JWTToken {
@@ -22,7 +23,7 @@ export function useGetJWTToken(): JWTToken | null {
 
   useEffect(() => {
     const tokenString = window.localStorage.getItem(LS_KEY);
-    const token: JWTToken = JSON.parse(tokenString ?? '{}');
+    const token: JWTToken = JSON.parse(tokenString ?? '{access_token:"",expires_at:""}');
     setToken(token);
   }, []);
 
@@ -31,13 +32,18 @@ export function useGetJWTToken(): JWTToken | null {
 
 export function useIsAuthenticated(): boolean {
   const token = useGetJWTToken();
-  return Boolean(token?.access_token?.length);
+  const isExpired = new Date(token?.expires_at ?? '') < new Date();
+  return Boolean(token?.access_token.length && !isExpired);
 }
 
 export function useProtectedRoute(callback?: () => any) {
   useEffect(() => {
     const tokenString = window.localStorage.getItem(LS_KEY);
     const token: JWTToken = JSON.parse(tokenString ?? '{}');
-    if (!token?.access_token?.length && callback) callback();
+    if (!callback) {
+      redirect('/');
+    }
+    if (!token?.access_token?.length) callback();
+    if (new Date(token.expires_at) < new Date()) callback();
   }, []);
 }
