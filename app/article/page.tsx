@@ -9,6 +9,7 @@ import { Header } from '../components/header';
 import { TextSkeleton } from '../components/skeleton';
 
 import './style.css';
+import { WSYGIEditor } from '../components/wsygi';
 
 export default function Article() {
   const [url, setUrl] = useState<string>('');
@@ -43,14 +44,14 @@ export default function Article() {
             <img src="/send.svg" alt="send" className="w-6" />
           </button>
         </form>
-        {isFetching && <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />}
-        {content && (
-          <div
-            className="my-8 p-3 bg-gray-300 dark:bg-gray-800 text-text dark:text-text-dark w-5/6 md:w-[98%] mx-auto rounded-lg"
-            dangerouslySetInnerHTML={{
-              __html: content,
-            }}
-          ></div>
+        {isFetching ? (
+          <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />
+        ) : (
+          <WSYGIEditor
+            content={content ?? ''}
+            onchange={setContent}
+            classNames={`${content ? 'inline-block' : 'hidden'} w-5/6 md:w-[98%] mx-auto my-8`}
+          />
         )}
       </main>
     </>
