@@ -7,9 +7,9 @@ import { FormEvent, useState } from 'react';
 import { useArticle } from '@/hooks/useArticle';
 import { Header } from '../components/header';
 import { TextSkeleton } from '../components/skeleton';
+import { WSYGIEditor } from '../components/wsygi';
 
 import './style.css';
-import { WSYGIEditor } from '../components/wsygi';
 
 export default function Article() {
   const [url, setUrl] = useState<string>('');
