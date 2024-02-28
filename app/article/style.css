@@ -6,13 +6,17 @@ var {
   margin: 0.5rem 0;
 }
 
-h2 {
-  font-size: 1.5rem;
-}
-
 code,
 var {
   background-color: #828181;
   padding: 0.4rem 0.8rem;
   border-radius: 0.4rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+strong {
+  font-weight: 800;
 }
