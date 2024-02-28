@@ -1,6 +1,7 @@
 'use client';
 
 import { useProtectedRoute } from '@/hooks/useAuth';
+import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
@@ -30,7 +31,7 @@ export default function Article() {
   };
 
   return (
-    <main className="max-w-4xl mx-auto flex flex-col justify-start pt-10 px-[4%] lg:px-0">
+    <main className="max-w-4xl mx-auto flex flex-col justify-start px-[4%] lg:px-0">
       <form className="flex gap-4 items-center justify-center" onSubmit={onSubmit}>
         <input
           required
@@ -41,7 +42,7 @@ export default function Article() {
           className="w-full py-2 px-4 border-none focus:outline-none text-text rounded-lg"
         />
         <button type="submit" className="bg-accent dark:bg-accent-dark rounded-lg p-2">
-          <img src="/send.svg" alt="send" className="w-6" />
+          <Image width={40} height={40} src="/send.svg" alt="send" className="w-6" />
         </button>
       </form>
       {isFetching && <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />}

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 
 import { Editor, EditorContent, useEditor } from '@tiptap/react';
@@ -48,7 +49,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
           }`}
           onClick={toggleHeader}
         >
-          <img src="/heading.svg" alt="heading-ico" className="h-5" />
+          <Image width={20} height={20} src="/heading.svg" alt="heading-ico" className="h-5" />
         </button>
         <button
           className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
@@ -56,7 +57,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
           }`}
           onClick={toggleBold}
         >
-          <img src="/bold.svg" alt="bold-ico" className="h-5" />
+          <Image width={20} height={20} src="/bold.svg" alt="bold-ico" className="h-5" />
         </button>
         <button
           className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
@@ -64,7 +65,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
           }`}
           onClick={toggleItalic}
         >
-          <img src="/italic.svg" alt="italic-ico" className="h-5" />
+          <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-5" />
         </button>
       </div>
     </div>

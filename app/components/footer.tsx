@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 import { useTheme } from '@/hooks/useTheme';
 
 export function Footer() {
@@ -12,7 +14,13 @@ export function Footer() {
         © {date.getFullYear()}, RYAN ADI PUTRA
       </a>
       <button className="h-10 w-10 p-2 rounded-full hover:bg-gray-400 dark:hover:bg-gray-800" onClick={toggleTheme}>
-        <img src={theme === 'light' ? '/day.svg' : '/night.svg'} alt="theme-ico" className="h-full" />
+        <Image
+          width={20}
+          height={20}
+          src={theme === 'light' ? '/day.svg' : '/night.svg'}
+          alt="theme-ico"
+          className="h-full"
+        />
       </button>
     </footer>
   );

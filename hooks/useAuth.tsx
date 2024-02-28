@@ -23,7 +23,7 @@ export function useGetJWTToken(): JWTToken | null {
 
   useEffect(() => {
     const tokenString = window.localStorage.getItem(LS_KEY);
-    const token: JWTToken = JSON.parse(tokenString ?? '{access_token:"",expires_at:""}');
+    const token: JWTToken = JSON.parse(tokenString ?? '{}');
     setToken(token);
   }, []);
 
@@ -33,7 +33,7 @@ export function useGetJWTToken(): JWTToken | null {
 export function useIsAuthenticated(): boolean {
   const token = useGetJWTToken();
   const isExpired = new Date(token?.expires_at ?? '') < new Date();
-  return Boolean(token?.access_token.length && !isExpired);
+  return Boolean(token?.access_token?.length && !isExpired);
 }
 
 export function useProtectedRoute(callback?: () => any) {
