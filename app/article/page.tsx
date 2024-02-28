@@ -55,7 +55,7 @@ export default function Article() {
               onchange={setTitle}
               classNames="font-bold w-full"
             />
-            <button className="py-3 px-6 bg-primary-dark rounded-lg">Save</button>
+            <button className="py-3 px-6 bg-primary-dark rounded-lg text-text-dark">Save</button>
           </div>
           <WSYGIField
             content={content ?? ''}
