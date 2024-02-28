@@ -44,14 +44,13 @@ export default function Article() {
           <img src="/send.svg" alt="send" className="w-6" />
         </button>
       </form>
-      {isFetching ? (
-        <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />
-      ) : (
+      {isFetching && <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />}
+      {content && !isFetching && (
         <div className="flex flex-col mt-12 gap-4">
           <span className="text-center">Bookmark your article!</span>
           <div className="flex items-center gap-4">
             <TextField
-              placeholder="Your Content Title..."
+              placeholder="Bookmark title..."
               value={title}
               onchange={setTitle}
               classNames="font-bold w-full"

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
+import { Footer } from './components/footer';
 import { Header } from './components/header';
 
 import './globals.css';
@@ -25,7 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-bg dark:bg-bg-dark text-text dark:text-text-dark`}>
         <Header />
-        {children}
+        <main className="min-h-[93vh]">{children}</main>
+        <Footer />
       </body>
     </html>
   );
