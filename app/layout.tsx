@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
+
+import { Header } from './components/header';
+
 import './globals.css';
 
 const inter = Poppins({
@@ -20,7 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-bg dark:bg-bg-dark text-text dark:text-text-dark`}>{children}</body>
+      <body className={`${inter.className} bg-bg dark:bg-bg-dark text-text dark:text-text-dark`}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

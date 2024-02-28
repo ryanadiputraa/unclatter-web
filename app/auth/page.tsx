@@ -3,7 +3,6 @@
 import { redirect, useSearchParams } from 'next/navigation';
 
 import { useStoreJWTToken } from '@/hooks/useAuth';
-import { Header } from '../components/header';
 
 export default function Auth() {
   const params = useSearchParams();
@@ -13,11 +12,8 @@ export default function Auth() {
   useStoreJWTToken({ access_token: accessToken, expires_at: expiresAt }, () => redirect('/article'));
 
   return (
-    <>
-      <Header />
-      <main className="grid place-items-center min-h-[93vh]">
-        <p>Authenticating...</p>
-      </main>
-    </>
+    <main className="grid place-items-center min-h-[93vh]">
+      <p>Authenticating...</p>
+    </main>
   );
 }

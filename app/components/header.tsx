@@ -16,7 +16,6 @@ export function Header() {
   const signOut = () => {
     if (!isMounted) return;
     window.localStorage.removeItem(LS_KEY);
-    console.log(isMounted);
     router.push('/');
   };
 
