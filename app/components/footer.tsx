@@ -13,7 +13,10 @@ export function Footer() {
       <a href="https://ryanadiputra.vercel.app/" target="_blank" referrerPolicy="no-referrer">
         © {date.getFullYear()}, RYAN ADI PUTRA
       </a>
-      <button className="h-10 w-10 p-2 rounded-full hover:bg-gray-400 dark:hover:bg-gray-800" onClick={toggleTheme}>
+      <button
+        className="h-10 w-10 p-2 grid place-items-center rounded-full hover:bg-gray-400 dark:hover:bg-gray-800"
+        onClick={toggleTheme}
+      >
         <Image
           width={20}
           height={20}
