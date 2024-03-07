@@ -22,7 +22,7 @@ export function Footer() {
           height={20}
           src={theme === 'light' ? '/day.svg' : '/night.svg'}
           alt="theme-ico"
-          className="h-full"
+          className="h-auto"
         />
       </button>
     </footer>
