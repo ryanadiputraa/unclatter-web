@@ -24,7 +24,7 @@ export function Toast() {
         role="alert"
       >
         <ToastIco type={type} />
-        <div className="ms-3 text-sm font-normal pr-4">{message}</div>
+        <div className="ms-3 text-sm font-normal pr-4 line-clamp-2">{message}</div>
         <button
           type="button"
           className="ms-auto bg-white dark:bg-black text-secondary dark:text-secondary-dark  rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5  inline-flex items-center justify-center h-8 w-8"

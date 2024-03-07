@@ -11,9 +11,9 @@ interface InitialState {
 const initialState: InitialState = {
   main: {
     toast: {
-      isOpen: true,
+      isOpen: false,
       type: 'info',
-      message: 'test',
+      message: '',
     },
   },
 };
