@@ -12,7 +12,7 @@ interface Props {
   classNames?: string;
 }
 
-export function WSYGIField({ content, onchange, classNames }: Props) {
+export function WSYGIField({ content, onchange, classNames = '' }: Props) {
   const editor = useEditor({
     extensions: [StarterKit.configure()],
     content: content,

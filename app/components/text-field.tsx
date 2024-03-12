@@ -9,7 +9,7 @@ interface Props {
   classNames?: string;
 }
 
-export function TextField({ type = 'text', required = false, placeholder, value, onchange, classNames }: Props) {
+export function TextField({ type = 'text', required = false, placeholder, value, onchange, classNames = '' }: Props) {
   return (
     <input
       type={type}

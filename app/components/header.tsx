@@ -25,11 +25,19 @@ export function Header() {
   }, []);
 
   return (
-    <header className="flex justify-between items-center px-[4%] sm:px-8 py-4 border-secondary dark:border-secondary-dark border-b-[0.02rem]">
-      <Link href="/" className="flex items-center gap-2">
-        <Image height={40} width={40} src="/unclatter.svg" alt="unclatter" className="w-6" />
-        <h1 className="text-xl font-bold">UnClatter</h1>
-      </Link>
+    <header className="flex justify-between items-center px-[4%] sm:px-8 py-3 border-secondary dark:border-secondary-dark border-b-[0.02rem]">
+      <div className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-2 sm:mr-4">
+          <Image height={60} width={60} src="/unclatter.svg" alt="unclatter" className="w-6" />
+          <h1 className="text-xl font-bold hidden sm:inline-block">UnClatter</h1>
+        </Link>
+        <Link href="/article">
+          <h4 className="text-xs sm:text-sm">Article</h4>
+        </Link>
+        <Link href="/bookmark">
+          <h4 className="text-xs sm:text-sm">Bookmark</h4>
+        </Link>
+      </div>
       <div className="text-sm">
         {pathname === '/' ? (
           <>
@@ -48,7 +56,7 @@ export function Header() {
         ) : (
           <button
             onClick={signOut}
-            className="px-4 py-2 border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
+            className="px-4 py-2 text-xs sm:text-sm border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
           >
             Sign Out
           </button>

@@ -12,8 +12,8 @@ export default function Auth() {
   useStoreJWTToken({ access_token: accessToken, expires_at: expiresAt }, () => redirect('/article'));
 
   return (
-    <main className="grid place-items-center min-h-[93vh]">
+    <div className="grid place-items-center min-h-[93vh]">
       <p>Authenticating...</p>
-    </main>
+    </div>
   );
 }
