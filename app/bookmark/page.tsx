@@ -17,8 +17,8 @@ export default function Bookmark() {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchArticles = async () => {
-    const { data, meta } = await fetchBookmarkedArticle(page, 15);
-    setArticles((prev) => [...prev, ...data]);
+    const { data, meta } = await fetchBookmarkedArticle(page, 30);
+    setArticles((prev) => (page === 1 ? data : [...prev, ...data]));
 
     if (!meta) return;
     setPage(meta?.current_page + 1);
@@ -28,30 +28,28 @@ export default function Bookmark() {
   useEffect(() => {
     if (!jwt) return;
     fetchArticles();
-  }, [jwt]);
+  }, [jwt]); // eslint-disable-line
 
   return (
-    <div className="px-[4%] lg:px-20">
-      <InfiniteScroll
-        dataLength={articles.length}
-        next={fetchArticles}
-        hasMore={hasMore}
-        loader={<Placeholder />}
-        className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 p-2"
-      >
-        {articles.map((article) => (
-          <Link
-            href={`/bookmark/${article.id}`}
-            key={article.id}
-            className="shadow-md shadow-secondary dark:shadow-secondary-dark lg:max-w-md w-full sm:w-[45%] lg:w-[30%] p-4 rounded-lg flex flex-col items-start gap-2 hover:scale-105 transition-transform"
-          >
-            <h4 className="text-lg font-bold">{article.title}</h4>
-            <p className="italic text-sm truncate w-full">{article.article_link}</p>
-            <span className="self-end text-sm">{format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}</span>
-          </Link>
-        ))}
-      </InfiniteScroll>
-    </div>
+    <InfiniteScroll
+      dataLength={articles.length}
+      next={fetchArticles}
+      hasMore={hasMore}
+      loader={<Placeholder />}
+      className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 px-[4%] lg:px-20 py-2"
+    >
+      {articles.map((article) => (
+        <Link
+          href={`/bookmark/${article.id}`}
+          key={article.id}
+          className="shadow-md shadow-secondary dark:shadow-secondary-dark lg:max-w-md w-full sm:w-[45%] lg:w-[30%] p-4 rounded-lg flex flex-col items-start gap-2 hover:scale-105 transition-transform"
+        >
+          <h4 className="text-lg font-bold">{article.title}</h4>
+          <p className="italic text-sm truncate w-full">{article.article_link}</p>
+          <span className="self-end text-sm">{format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}</span>
+        </Link>
+      ))}
+    </InfiniteScroll>
   );
 }
 

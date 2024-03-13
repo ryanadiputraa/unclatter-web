@@ -15,7 +15,7 @@ export function Toast() {
   useEffect(() => {
     const t = setTimeout(() => closeToast(), 3000);
     return () => clearTimeout(t);
-  }, [isOpen]);
+  }, [isOpen]); // eslint-disable-line
 
   return (
     <div className={`${isOpen ? 'fixed' : 'hidden'} bottom-4 right-8 min-w-48`}>
