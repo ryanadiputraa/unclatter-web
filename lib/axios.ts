@@ -1,12 +1,15 @@
 import axios, { AxiosError, isAxiosError } from 'axios';
 
+import { BASE_API_URL } from '@/utils/constant';
+
 export default axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: BASE_API_URL,
   timeout: 5000,
 });
 
 interface DataAPIResponse<T> {
   data: T;
+  meta?: Pagination;
 }
 
 interface ErrorAPIResponse {
@@ -17,6 +20,13 @@ interface ErrorAPIResponse {
 type ErrorResponse = {
   [key: string]: string;
 };
+
+interface Pagination {
+  current_page: number;
+  total_page: number;
+  size: number;
+  total_data: number;
+}
 
 export type { DataAPIResponse, ErrorAPIResponse };
 

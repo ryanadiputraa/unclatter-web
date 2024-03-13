@@ -1,8 +1,10 @@
 'use client';
 
+import { useContext } from 'react';
+
+import { AppContext } from '@/context';
 import { useMainAction } from '@/context/actions/main';
 import axios, { DataAPIResponse, ErrorAPIResponse, catchAxiosError } from '@/lib/axios';
-import { useGetJWTToken } from './useAuth';
 
 interface Article {
   id: string;
@@ -20,7 +22,7 @@ interface BookmarkArticlePayload {
 }
 
 export const useArticle = () => {
-  const jwt = useGetJWTToken();
+  const { jwt } = useContext(AppContext).auth;
   const toggleToast = useMainAction().toggleToast;
 
   const scrapeArticle = async (url: string): Promise<string | undefined> => {
@@ -52,5 +54,20 @@ export const useArticle = () => {
     }
   };
 
-  return { scrapeArticle, bookmarkArticle };
+  const fetchBookmarkedArticle = async (): Promise<Article[]> => {
+    try {
+      const resp = await axios.get<DataAPIResponse<Article[]>>('/api/articles/bookmarks', {
+        headers: {
+          Authorization: `Bearer ${jwt?.access_token}`,
+        },
+      });
+      return resp.data.data;
+    } catch (error) {
+      const err = catchAxiosError(error);
+      toggleToast({ isOpen: true, type: 'error', message: err.message });
+      return [];
+    }
+  };
+
+  return { scrapeArticle, bookmarkArticle, fetchBookmarkedArticle };
 };

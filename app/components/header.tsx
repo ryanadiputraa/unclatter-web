@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { LS_KEY, useIsAuthenticated } from '@/hooks/useAuth';
-import { SIGN_IN_GOOGLE_URL } from '@/utils/constant';
+import { useIsAuthenticated } from '@/hooks/useAuth';
+import { AUTH_LS_KEY, SIGN_IN_GOOGLE_URL } from '@/utils/constant';
 
 export function Header() {
   const isAuthenticated = useIsAuthenticated();
@@ -16,7 +16,7 @@ export function Header() {
 
   const signOut = () => {
     if (!isMounted) return;
-    window.localStorage.removeItem(LS_KEY);
+    window.localStorage.removeItem(AUTH_LS_KEY);
     router.push('/');
   };
 

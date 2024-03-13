@@ -1,8 +1,7 @@
 'use client';
 
-import { useProtectedRoute } from '@/hooks/useAuth';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
 import { useMainAction } from '@/context/actions/main';
@@ -23,7 +22,7 @@ export default function Article() {
   const [content, setContent] = useState<string | null>(null);
   const [articleURL, setArticleURL] = useState<string>('');
 
-  useProtectedRoute(() => redirect('/'));
+  const router = useRouter();
   const { scrapeArticle, bookmarkArticle } = useArticle();
   const toggleToast = useMainAction().toggleToast;
 
@@ -52,13 +51,14 @@ export default function Article() {
     if (!error) {
       toggleToast({ isOpen: true, type: 'info', message: 'Article saved!' });
       setTitleError(null);
+      router.push('/bookmark');
     } else if (error.error?.title) {
       setTitleError(error.error.title);
     }
   };
 
   return (
-    <main className="max-w-4xl mx-auto flex flex-col justify-start px-[4%] lg:px-0">
+    <div className="max-w-4xl mx-auto flex flex-col justify-start px-[4%] lg:px-0">
       <form className="flex gap-4 items-center justify-center" onSubmit={scrape}>
         <input
           required
@@ -72,7 +72,7 @@ export default function Article() {
           <Image width={40} height={40} src="/send.svg" alt="send" className="w-6" />
         </button>
       </form>
-      {isScrapping && <TextSkeleton classNames="my-8 w-5/6 md:w-[98%] mx-auto" />}
+      {isScrapping && <TextSkeleton classNames="my-8 w-full mx-auto min-w-0" />}
       {content && !isScrapping && (
         <div className="flex flex-col mt-12">
           {titleError && <span className="text-red-400 text-sm mb-2">{titleError}</span>}
@@ -98,6 +98,6 @@ export default function Article() {
           />
         </div>
       )}
-    </main>
+    </div>
   );
 }

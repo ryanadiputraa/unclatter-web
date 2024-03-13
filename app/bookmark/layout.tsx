@@ -6,7 +6,7 @@ import { AppProvider } from '@/context';
 import ProtectedRouteProvider from '@/hooks/useAuth';
 import { Toast } from '../components/toast';
 
-export default function ArticleLayout({
+export default function BookmarkLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
