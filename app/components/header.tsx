@@ -31,10 +31,16 @@ export function Header() {
           <Image height={60} width={60} src="/unclatter.svg" alt="unclatter" className="w-6" />
           <h1 className="text-xl font-bold hidden sm:inline-block">UnClatter</h1>
         </Link>
-        <Link href="/article">
+        <Link
+          href="/article"
+          className="self-end border-b-2 border-transparent hover:border-secondary dark:hover:border-secondary-dark"
+        >
           <h4 className="text-xs sm:text-sm">Article</h4>
         </Link>
-        <Link href="/bookmark">
+        <Link
+          href="/bookmark"
+          className="self-end border-b-2 border-transparent hover:border-secondary dark:hover:border-secondary-dark"
+        >
           <h4 className="text-xs sm:text-sm">Bookmark</h4>
         </Link>
       </div>
@@ -47,7 +53,7 @@ export function Header() {
             {!isAuthenticated && (
               <Link
                 href={SIGN_IN_GOOGLE_URL}
-                className="px-4 py-2 ml-4 border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
+                className="px-4 py-2 ml-4 border-secondary dark:border-secondary-dark border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
               >
                 <button>Sign Up</button>
               </Link>
@@ -56,7 +62,7 @@ export function Header() {
         ) : (
           <button
             onClick={signOut}
-            className="px-4 py-2 text-xs sm:text-sm border-secondary border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
+            className="px-4 py-2 text-xs sm:text-sm border-secondary dark:border-secondary-dark border-[0.02rem] rounded-lg hover:bg-secondary dark:hover:bg-secondary-dark"
           >
             Sign Out
           </button>

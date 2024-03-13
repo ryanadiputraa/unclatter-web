@@ -6,7 +6,7 @@ import { AppContext } from '@/context';
 import { useMainAction } from '@/context/actions/main';
 import axios, { DataAPIResponse, ErrorAPIResponse, catchAxiosError } from '@/lib/axios';
 
-interface Article {
+export interface Article {
   id: string;
   title: string;
   content: string;
@@ -54,9 +54,9 @@ export const useArticle = () => {
     }
   };
 
-  const fetchBookmarkedArticle = async (): Promise<Article[]> => {
+  const fetchBookmarkedArticle = async (page: number = 1, size: number = 20): Promise<Article[]> => {
     try {
-      const resp = await axios.get<DataAPIResponse<Article[]>>('/api/articles/bookmarks', {
+      const resp = await axios.get<DataAPIResponse<Article[]>>(`/api/articles/bookmarks?page=${page}&size=${size}`, {
         headers: {
           Authorization: `Bearer ${jwt?.access_token}`,
         },
