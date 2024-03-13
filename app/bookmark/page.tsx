@@ -3,6 +3,7 @@
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { AppContext } from '@/context';
 import { Article, useArticle } from '@/hooks/useArticle';
@@ -11,24 +12,33 @@ import { TextSkeleton } from '../components/skeleton';
 export default function Bookmark() {
   const { jwt } = useContext(AppContext).auth;
   const { fetchBookmarkedArticle } = useArticle();
-  const [isFetching, setIsFetching] = useState(true);
   const [articles, setArticles] = useState<Article[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const fetchArticles = async () => {
+    const { data, meta } = await fetchBookmarkedArticle(page, 15);
+    setArticles((prev) => [...prev, ...data]);
+
+    if (!meta) return;
+    setPage(meta?.current_page + 1);
+    setHasMore(meta.current_page < meta.total_page);
+  };
 
   useEffect(() => {
     if (!jwt) return;
-    const fetchArticles = async () => {
-      setIsFetching(true);
-      const articles = await fetchBookmarkedArticle();
-      setArticles(articles);
-      setIsFetching(false);
-    };
     fetchArticles();
   }, [jwt]);
 
   return (
     <div className="px-[4%] lg:px-20">
-      <div className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20">
-        {isFetching && <Placeholder />}
+      <InfiniteScroll
+        dataLength={articles.length}
+        next={fetchArticles}
+        hasMore={hasMore}
+        loader={<Placeholder />}
+        className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 p-2"
+      >
         {articles.map((article) => (
           <Link
             href={`/bookmark/${article.id}`}
@@ -40,7 +50,7 @@ export default function Bookmark() {
             <span className="self-end text-sm">{format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}</span>
           </Link>
         ))}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 }

@@ -54,18 +54,18 @@ export const useArticle = () => {
     }
   };
 
-  const fetchBookmarkedArticle = async (page: number = 1, size: number = 20): Promise<Article[]> => {
+  const fetchBookmarkedArticle = async (page: number = 1, size: number = 20): Promise<DataAPIResponse<Article[]>> => {
     try {
       const resp = await axios.get<DataAPIResponse<Article[]>>(`/api/articles/bookmarks?page=${page}&size=${size}`, {
         headers: {
           Authorization: `Bearer ${jwt?.access_token}`,
         },
       });
-      return resp.data.data;
+      return resp.data;
     } catch (error) {
       const err = catchAxiosError(error);
       toggleToast({ isOpen: true, type: 'error', message: err.message });
-      return [];
+      return { data: [] };
     }
   };
 
