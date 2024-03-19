@@ -73,7 +73,7 @@ export default function Article() {
           type="submit"
           className="bg-accent dark:bg-accent-dark rounded-lg p-2"
         >
-          <Image width={40} height={40} src="/send.svg" alt="send" className="w-6" />
+          <Image width={40} height={40} src="/send.svg" alt="send" className="w-6 invert dark:invert-0" />
         </button>
       </form>
       {isScrapping && <TextSkeleton classNames="my-8 w-full mx-auto min-w-0" />}

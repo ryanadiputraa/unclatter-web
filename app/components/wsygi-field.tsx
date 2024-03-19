@@ -61,7 +61,7 @@ function Toolbar({
           }`}
           onClick={toggleHeader}
         >
-          <Image width={20} height={20} src="/heading.svg" alt="heading-ico" className="h-5" />
+          <Image width={20} height={20} src="/heading.svg" alt="heading-ico" className="h-5 dark:invert" />
         </button>
         <button
           className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
@@ -69,7 +69,7 @@ function Toolbar({
           }`}
           onClick={toggleBold}
         >
-          <Image width={20} height={20} src="/bold.svg" alt="bold-ico" className="h-5" />
+          <Image width={20} height={20} src="/bold.svg" alt="bold-ico" className="h-5 dark:invert" />
         </button>
         <button
           className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
@@ -77,7 +77,7 @@ function Toolbar({
           }`}
           onClick={toggleItalic}
         >
-          <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-5" />
+          <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-5 dark:invert" />
         </button>
       </div>
       {action}

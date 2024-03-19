@@ -67,7 +67,14 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
                   target="_blank"
                   className="text-xs text-text dark:text-text-dark flex items-center gap-2"
                 >
-                  <Image src={'/external-link-white.svg'} alt="external-link" width={12} height={12} /> Visit Link
+                  <Image
+                    src={'/external-link.svg'}
+                    alt="external-link"
+                    width={12}
+                    height={12}
+                    className="dark:invert"
+                  />{' '}
+                  Visit Link
                 </a>
               }
               toolbarClassNames="border-b-[0.02rem] pb-3 border-primary-dark dark:border-primary rounded-none"
