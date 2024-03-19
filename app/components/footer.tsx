@@ -9,7 +9,7 @@ export function Footer() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <footer className="py-3 px-[4%] lg:px-6 text-xs sm:text-base flex justify-between items-center border-secondary dark:border-secondary-dark border-t-[0.02rem]">
+    <footer className="bg-primary dark:bg-primary-dark py-3 px-[4%] lg:px-6 text-xs sm:text-base flex justify-between items-center border-secondary dark:border-secondary-dark border-t-[0.02rem]">
       <a href="https://ryanadiputra.vercel.app/" target="_blank" referrerPolicy="no-referrer">
         © {date.getFullYear()}, RYAN ADI PUTRA
       </a>

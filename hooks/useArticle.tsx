@@ -69,5 +69,20 @@ export const useArticle = () => {
     }
   };
 
-  return { scrapeArticle, bookmarkArticle, fetchBookmarkedArticle };
+  const fetchArticleById = async (id: string): Promise<DataAPIResponse<Article> | null> => {
+    try {
+      const resp = await axios.get<DataAPIResponse<Article>>(`/api/articles/bookmarks/${id}`, {
+        headers: {
+          Authorization: `Bearer ${jwt?.access_token}`,
+        },
+      });
+      return resp.data;
+    } catch (error) {
+      const err = catchAxiosError(error);
+      toggleToast({ isOpen: true, type: 'error', message: err.message });
+      return null;
+    }
+  };
+
+  return { scrapeArticle, bookmarkArticle, fetchBookmarkedArticle, fetchArticleById };
 };

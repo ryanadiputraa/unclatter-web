@@ -68,7 +68,11 @@ export default function Article() {
           onChange={(e) => setInputURL(e.target.value)}
           className="w-full py-2 px-4 border-none focus:outline-none text-text rounded-lg"
         />
-        <button disabled={isScrapping || isSaving} type="submit" className="bg-accent-dark rounded-lg p-2">
+        <button
+          disabled={isScrapping || isSaving}
+          type="submit"
+          className="bg-accent dark:bg-accent-dark rounded-lg p-2"
+        >
           <Image width={40} height={40} src="/send.svg" alt="send" className="w-6" />
         </button>
       </form>
@@ -85,7 +89,7 @@ export default function Article() {
             />
             <button
               disabled={isScrapping || isSaving}
-              className="py-3 px-6 bg-primary-dark rounded-lg text-text-dark"
+              className="py-3 px-6 bg-accent dark:bg-accent-dark rounded-lg text-text-dark dark:text-text"
               onClick={bookmark}
             >
               Save

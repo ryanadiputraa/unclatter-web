@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 import { Editor, EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -10,9 +10,11 @@ interface Props {
   content: string;
   onchange: Dispatch<SetStateAction<string | null>>;
   classNames?: string;
+  toolbarAction?: ReactNode;
+  toolbarClassNames?: string;
 }
 
-export function WSYGIField({ content, onchange, classNames = '' }: Props) {
+export function WSYGIField({ content, onchange, classNames = '', toolbarAction, toolbarClassNames = '' }: Props) {
   const editor = useEditor({
     extensions: [StarterKit.configure()],
     content: content,
@@ -28,20 +30,30 @@ export function WSYGIField({ content, onchange, classNames = '' }: Props) {
 
   return (
     <div className={`flex flex-col ${classNames}`}>
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} action={toolbarAction} classNames={toolbarClassNames} />
       <EditorContent editor={editor} />
     </div>
   );
 }
 
-function Toolbar({ editor }: { editor: Editor | null }) {
+function Toolbar({
+  editor,
+  action,
+  classNames = '',
+}: {
+  editor: Editor | null;
+  action?: ReactNode;
+  classNames?: string;
+}) {
   const toggleHeader = () => editor?.chain().focus().toggleHeading({ level: 2 }).run();
   const toggleBold = () => editor?.chain().focus().toggleBold().run();
   const toggleItalic = () => editor?.chain().focus().toggleItalic().run();
 
   if (!editor) return null;
   return (
-    <div className="flex justify-between p-1 bg-gray-300 dark:bg-gray-800 text-text dark:text-text-dark rounded-lg my-1">
+    <div
+      className={`flex justify-between p-1 pr-5 bg-gray-300 dark:bg-gray-800 text-text dark:text-text-dark rounded-lg my-1 ${classNames}`}
+    >
       <div>
         <button
           className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
@@ -68,6 +80,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
           <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-5" />
         </button>
       </div>
+      {action}
     </div>
   );
 }
