@@ -25,7 +25,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="flex justify-between items-center px-[4%] sm:px-8 py-3 border-secondary dark:border-secondary-dark border-b-[0.02rem]">
+    <header className="fixed w-full bg-bg dark:bg-bg-dark z-50 flex justify-between items-center px-[4%] sm:px-8 py-3 border-secondary dark:border-secondary-dark border-b-[0.02rem]">
       <div className="flex items-center gap-4">
         <Link href="/" className="flex items-center gap-2 sm:mr-4">
           <Image height={60} width={60} src="/unclatter.svg" alt="unclatter" className="w-6" />

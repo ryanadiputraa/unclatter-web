@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-bg dark:bg-bg-dark text-text dark:text-text-dark`}>
         <Header />
-        <main className="min-h-[94vh] py-8">{children}</main>
+        <main className="min-h-[94vh] pt-20 pb-8">{children}</main>
         <Footer />
       </body>
     </html>
