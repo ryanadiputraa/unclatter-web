@@ -38,19 +38,23 @@ export default function Bookmark() {
       loader={<Placeholder />}
       className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 px-[4%] lg:px-20 py-2"
     >
-      {articles.map((article) => (
-        <Link
-          href={`/bookmark/${article.id}`}
-          key={article.id}
-          className="shadow-md shadow-secondary dark:shadow-secondary-dark lg:max-w-md w-full sm:w-[45%] lg:w-[30%] p-4 rounded-lg flex flex-col items-start gap-2 hover:scale-105 transition-transform"
-        >
-          <h4 className="text-lg font-bold">{article.title}</h4>
-          <p className="italic text-sm truncate w-full">{article.article_link}</p>
-          <span className="self-end text-sm text-gray-500 dark:text-gray-300">
-            {format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}
-          </span>
-        </Link>
-      ))}
+      {articles.length ? (
+        articles.map((article) => (
+          <Link
+            href={`/bookmark/${article.id}`}
+            key={article.id}
+            className="shadow-md shadow-secondary dark:shadow-secondary-dark lg:max-w-md w-full sm:w-[45%] lg:w-[30%] p-4 rounded-lg flex flex-col items-start gap-2 hover:scale-105 transition-transform"
+          >
+            <h4 className="text-lg font-bold">{article.title}</h4>
+            <p className="italic text-sm truncate w-full">{article.article_link}</p>
+            <span className="self-end text-sm text-gray-500 dark:text-gray-300">
+              {format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}
+            </span>
+          </Link>
+        ))
+      ) : (
+        <span className="mx-auto h-[85vh] text-center grid place-items-center">No bookmarked articles found.</span>
+      )}
     </InfiniteScroll>
   );
 }
