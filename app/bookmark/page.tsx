@@ -46,7 +46,9 @@ export default function Bookmark() {
         >
           <h4 className="text-lg font-bold">{article.title}</h4>
           <p className="italic text-sm truncate w-full">{article.article_link}</p>
-          <span className="self-end text-sm">{format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}</span>
+          <span className="self-end text-sm text-gray-500 dark:text-gray-300">
+            {format(article.updated_at, 'MMM do, yyyy - hh:mm aaa')}
+          </span>
         </Link>
       ))}
     </InfiniteScroll>

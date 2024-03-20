@@ -52,32 +52,32 @@ function Toolbar({
   if (!editor) return null;
   return (
     <div
-      className={`flex justify-between p-1 pr-5 bg-gray-300 dark:bg-gray-800 text-text dark:text-text-dark rounded-lg my-1 ${classNames}`}
+      className={`flex justify-between p-1 sm:pr-5 bg-gray-300 dark:bg-gray-800 text-text dark:text-text-dark rounded-lg my-1 ${classNames}`}
     >
       <div>
         <button
-          className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
+          className={`py-2 px-2 sm:px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
             editor.isActive('heading') ? 'bg-gray-400 dark:bg-gray-700' : ''
           }`}
           onClick={toggleHeader}
         >
-          <Image width={20} height={20} src="/heading.svg" alt="heading-ico" className="h-5 dark:invert" />
+          <Image width={20} height={20} src="/heading.svg" alt="heading-ico" className="h-3 sm:h-5 dark:invert" />
         </button>
         <button
-          className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
+          className={`py-2 px-2 sm:px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
             editor.isActive('bold') ? 'bg-gray-400 dark:bg-gray-700' : ''
           }`}
           onClick={toggleBold}
         >
-          <Image width={20} height={20} src="/bold.svg" alt="bold-ico" className="h-5 dark:invert" />
+          <Image width={20} height={20} src="/bold.svg" alt="bold-ico" className="h-3 sm:h-5 dark:invert" />
         </button>
         <button
-          className={`py-2 px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
+          className={`py-2 px-2 sm:px-5 hover:bg-gray-700 rounded-lg cursor-pointer ${
             editor.isActive('italic') ? 'bg-gray-400 dark:bg-gray-700' : ''
           }`}
           onClick={toggleItalic}
         >
-          <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-5 dark:invert" />
+          <Image width={20} height={20} src="/italic.svg" alt="italic-ico" className="h-3 sm:h-5 dark:invert" />
         </button>
       </div>
       {action}

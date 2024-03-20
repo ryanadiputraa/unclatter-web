@@ -13,7 +13,7 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
   const [article, setArticle] = useState<Article>();
   const [isFetching, setIsFetching] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const { fetchArticleById, updateArticle } = useArticle();
+  const { fetchArticleById, updateArticle, deleteArticle } = useArticle();
   const router = useRouter();
 
   const updateArticleField = (field: string, value: any) => {
@@ -27,8 +27,8 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
   };
 
   const onSave = async () => {
-    setIsSaving(true);
     if (!article) return;
+    setIsSaving(true);
     await updateArticle(article.id, {
       title: article.title,
       article_link: article.article_link,
@@ -36,6 +36,14 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
     });
     setIsSaving(false);
     router.push('/bookmark');
+  };
+
+  const onDelete = async () => {
+    if (!article) return;
+    setIsSaving(true);
+    const isSuccess = await deleteArticle(article.id);
+    setIsSaving(false);
+    if (isSuccess) router.push('/bookmark');
   };
 
   useEffect(() => {
@@ -74,20 +82,25 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
               onchange={(e) => updateArticleField('content', e)}
               classNames={`${article.content ? 'inline-block' : 'hidden'} w-full`}
               toolbarAction={
-                <a
-                  href={article.article_link}
-                  target="_blank"
-                  className="text-xs text-text dark:text-text-dark flex items-center gap-2"
-                >
-                  <Image
-                    src={'/external-link.svg'}
-                    alt="external-link"
-                    width={12}
-                    height={12}
-                    className="dark:invert"
-                  />{' '}
-                  Visit Link
-                </a>
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <a
+                    href={article.article_link}
+                    target="_blank"
+                    className="text-xs text-text dark:text-text-dark flex items-center gap-2"
+                  >
+                    <Image
+                      src={'/external-link.svg'}
+                      alt="external-link"
+                      width={12}
+                      height={12}
+                      className="dark:invert"
+                    />{' '}
+                    Visit Link
+                  </a>
+                  <button onClick={onDelete}>
+                    <Image src={'/trash.svg'} alt="delete" width={28} height={36} className="dark:invert w-6" />
+                  </button>
+                </div>
               }
               toolbarClassNames="border-b-[0.02rem] pb-3 border-primary-dark dark:border-primary rounded-none"
             />

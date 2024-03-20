@@ -100,5 +100,21 @@ export const useArticle = () => {
     }
   };
 
-  return { scrapeArticle, bookmarkArticle, fetchBookmarkedArticle, fetchArticleById, updateArticle };
+  const deleteArticle = async (articleId: string): Promise<boolean> => {
+    try {
+      await axios.delete(`/api/articles/bookmarks/${articleId}`, {
+        headers: {
+          Authorization: `Bearer ${jwt?.access_token}`,
+        },
+      });
+      toggleToast({ isOpen: true, type: 'info', message: 'article deleted!' });
+      return true;
+    } catch (error) {
+      const err = catchAxiosError(error);
+      toggleToast({ isOpen: true, type: 'error', message: err.message });
+      return false;
+    }
+  };
+
+  return { scrapeArticle, bookmarkArticle, fetchBookmarkedArticle, fetchArticleById, updateArticle, deleteArticle };
 };
