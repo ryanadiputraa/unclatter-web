@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { TextSkeleton } from '@/app/components/skeleton';
@@ -12,7 +13,8 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
   const [article, setArticle] = useState<Article>();
   const [isFetching, setIsFetching] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const { fetchArticleById } = useArticle();
+  const { fetchArticleById, updateArticle } = useArticle();
+  const router = useRouter();
 
   const updateArticleField = (field: string, value: any) => {
     setArticle((prev) => {
@@ -24,7 +26,17 @@ export default function BookmarkContent({ params }: { params: { articleId: strin
     });
   };
 
-  const onSave = () => console.log(article);
+  const onSave = async () => {
+    setIsSaving(true);
+    if (!article) return;
+    await updateArticle(article.id, {
+      title: article.title,
+      article_link: article.article_link,
+      content: article.content,
+    });
+    setIsSaving(false);
+    router.push('/bookmark');
+  };
 
   useEffect(() => {
     const getArticle = async () => {
