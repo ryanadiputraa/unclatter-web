@@ -10,8 +10,8 @@ export function Footer() {
 
   return (
     <footer className="bg-primary dark:bg-primary-dark py-3 px-[4%] lg:px-6 text-xs sm:text-base flex justify-between items-center border-secondary dark:border-secondary-dark border-t-[0.02rem]">
-      <a href="https://ryanadiputra.vercel.app/" target="_blank" referrerPolicy="no-referrer">
-        © {date.getFullYear()}, RYAN ADI PUTRA
+      <a href="https://devzy.my.id/" target="_blank" referrerPolicy="no-referrer">
+        © {date.getFullYear()}, devzy
       </a>
       <button
         className="h-10 w-10 p-2 grid place-items-center rounded-full hover:bg-gray-400 dark:hover:bg-gray-800"
