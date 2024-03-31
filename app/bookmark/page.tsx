@@ -15,10 +15,13 @@ export default function Bookmark() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [isFetching, setIsFetching] = useState(true);
 
   const fetchArticles = async () => {
+    setIsFetching(true);
     const { data, meta } = await fetchBookmarkedArticle(page, 30);
     setArticles((prev) => (page === 1 ? data : [...prev, ...data]));
+    setIsFetching(false);
 
     if (!meta) return;
     setPage(meta?.current_page + 1);
@@ -38,7 +41,7 @@ export default function Bookmark() {
       loader={<Placeholder />}
       className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 px-[4%] lg:px-20 py-2"
     >
-      {articles.length ? (
+      {articles.length || isFetching ? (
         articles.map((article) => (
           <Link
             href={`/bookmark/${article.id}`}
