@@ -38,7 +38,7 @@ export default function Bookmark() {
       dataLength={articles.length}
       next={fetchArticles}
       hasMore={hasMore}
-      loader={<Placeholder />}
+      loader={<Placeholder isFetching={isFetching} />}
       className="flex flex-wrap justify-between lg:justify-start gap-0 lg:gap-x-20 gap-y-20 px-[4%] lg:px-20 py-2"
     >
       {articles.length || isFetching ? (
@@ -62,7 +62,9 @@ export default function Bookmark() {
   );
 }
 
-const Placeholder = () =>
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((v) => (
-    <TextSkeleton key={v} classNames="h-40 min-w-0 max-w-md w-full sm:w-[45%] lg:w-[30%]" />
-  ));
+const Placeholder = ({ isFetching }: { isFetching: boolean }) =>
+  isFetching
+    ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((v) => (
+        <TextSkeleton key={v} classNames="h-40 min-w-0 max-w-md w-full sm:w-[45%] lg:w-[30%]" />
+      ))
+    : null;
