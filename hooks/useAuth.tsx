@@ -50,10 +50,11 @@ export function useIsAuthenticated(): boolean {
 export function useProtectedRoute(callback?: () => any) {
   const { jwt } = useContext(AppContext).auth;
   const { setJWTToken } = useAuthAction();
+  const isExpired = new Date() >= new Date(jwt?.expires_at ?? '');
 
   useEffect(() => {
     let token: JWTToken;
-    if (jwt) {
+    if (jwt && !isExpired) {
       token = jwt;
     } else {
       const tokenString = window.localStorage.getItem(AUTH_LS_KEY);
