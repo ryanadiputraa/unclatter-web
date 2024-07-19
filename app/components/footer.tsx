@@ -1,17 +1,36 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
+import Image from "next/image";
+import { useState } from "react";
 
-import { useTheme } from '@/hooks/useTheme';
+import { Theme } from "@/context/reducers/main";
+import { setCookie } from "@/lib/storage";
+import { ONE_YEAR_IN_MILISECOND } from "@/utils/constant";
 
-export function Footer() {
-  const { theme, toggleTheme } = useTheme();
+export function Footer({ initialTheme }: { initialTheme: Theme }) {
+  const [theme, setTheme] = useState<Theme>(initialTheme);
+  const cookieExpireDate = new Date();
+  cookieExpireDate.setTime(cookieExpireDate.getTime() + ONE_YEAR_IN_MILISECOND);
+
+  const toggleTheme = () => {
+    const html = document.querySelector("html");
+    const newVal = theme === "light" ? "dark" : "light";
+    html?.classList.remove(theme);
+    html?.classList.add(newVal);
+    setTheme(newVal);
+    setCookie("theme", newVal, cookieExpireDate);
+  };
 
   return (
     <footer className="bg-primary dark:bg-primary-dark py-3 px-[4%] lg:px-6 text-xs sm:text-base flex justify-between items-center border-secondary dark:border-secondary-dark border-t-[0.02rem]">
-      <a href="https://devzy.my.id/" target="_blank" referrerPolicy="no-referrer" className="flex items-center gap-3">
+      <a
+        href="https://devzy.my.id/"
+        target="_blank"
+        referrerPolicy="no-referrer"
+        className="flex items-center gap-3"
+      >
         <Image
-          src={theme === 'light' ? '/github.svg' : '/github-white.svg'}
+          src={theme === "light" ? "/github.svg" : "/github-white.svg"}
           width={24}
           height={24}
           alt="github"
@@ -26,7 +45,7 @@ export function Footer() {
         <Image
           width={20}
           height={20}
-          src={theme === 'light' ? '/day.svg' : '/night.svg'}
+          src={theme === "light" ? "/day.svg" : "/night.svg"}
           alt="theme-ico"
           className="h-auto"
         />

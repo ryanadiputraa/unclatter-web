@@ -1,6 +1,6 @@
 export const mainReducer = (state: MainState, action: MainAction) => {
   switch (action.type) {
-    case 'TOGGLE_TOAST':
+    case "TOGGLE_TOAST":
       return {
         ...state,
         toast: action.data,
@@ -17,10 +17,14 @@ export interface Toast {
   message: string;
 }
 
-export type ToastType = 'info' | 'warning' | 'error';
+export type ToastType = "info" | "warning" | "error";
+
+export type Theme = "dark" | "light";
 
 export interface MainState {
   toast: Toast;
 }
 
-export type MainAction = { type: 'TOGGLE_THEME' } | { type: 'TOGGLE_TOAST'; data: Toast };
+export type MainAction =
+  | { type: "TOGGLE_THEME" }
+  | { type: "TOGGLE_TOAST"; data: Toast };
