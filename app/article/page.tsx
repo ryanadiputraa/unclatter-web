@@ -1,26 +1,27 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
-import { useMainAction } from '@/context/actions/main';
-import { useArticle } from '@/hooks/useArticle';
-import { TextSkeleton } from '../components/skeleton';
-import { TextField } from '../components/text-field';
-import { WSYGIField } from '../components/wsygi-field';
+import { useMainAction } from "@/context/actions/main";
+import { useArticle } from "@/hooks/useArticle";
 
-import './style.css';
+import { TextSkeleton } from "../components/skeleton";
+import { TextField } from "../components/text-field";
+import { WSYGIField } from "../components/wsygi-field";
+
+import "./style.css";
 
 export default function Article() {
-  const [inputURL, setInputURL] = useState<string>('');
+  const [inputURL, setInputURL] = useState<string>("");
   const [isScrapping, setIsScrapping] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const [titleError, setTitleError] = useState<string | null>(null);
   const [content, setContent] = useState<string | null>(null);
-  const [articleURL, setArticleURL] = useState<string>('');
+  const [articleURL, setArticleURL] = useState<string>("");
 
   const router = useRouter();
   const { scrapeArticle, bookmarkArticle } = useArticle();
@@ -33,7 +34,7 @@ export default function Article() {
     setIsScrapping(false);
 
     if (result) {
-      setTitle('');
+      setTitle("");
       setContent(result);
       setArticleURL(inputURL);
     }
@@ -43,23 +44,26 @@ export default function Article() {
     setIsSaving(true);
     const error = await bookmarkArticle({
       title: title,
-      content: content ?? '',
+      content: content ?? "",
       article_link: articleURL,
     });
     setIsSaving(false);
 
     if (!error) {
-      toggleToast({ isOpen: true, type: 'info', message: 'Article saved!' });
+      toggleToast({ isOpen: true, type: "info", message: "Article saved!" });
       setTitleError(null);
-      router.push('/bookmark');
+      router.push("/bookmark");
     } else if (error.error?.title) {
       setTitleError(error.error.title);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto flex flex-col justify-start px-[4%] lg:px-0">
-      <form className="flex gap-4 items-center justify-center" onSubmit={scrape}>
+    <div className="max-w-4xl mx-auto flex flex-col justify-start mt-8 px-[4%] lg:px-0">
+      <form
+        className="flex gap-4 items-center justify-center"
+        onSubmit={scrape}
+      >
         <input
           required
           placeholder="insert article url..."
@@ -73,19 +77,36 @@ export default function Article() {
           type="submit"
           className="bg-accent dark:bg-accent-dark rounded-lg p-2"
         >
-          <Image width={40} height={40} src="/send.svg" alt="send" className="w-6 invert dark:invert-0" />
+          <Image
+            width={40}
+            height={40}
+            src="/send.svg"
+            alt="send"
+            className="w-6 invert dark:invert-0"
+          />
         </button>
       </form>
       {isScrapping && <TextSkeleton classNames="my-8 w-full mx-auto min-w-0" />}
+      {!content && !isScrapping && (
+        <Image
+          src={"/article.svg"}
+          alt="article"
+          width={1280}
+          height={720}
+          className="h-auto sm:h-[32rem] w-full sm:w-auto mt-20"
+        />
+      )}
       {content && !isScrapping && (
         <div className="flex flex-col mt-12">
-          {titleError && <span className="text-red-400 text-sm mb-2">{titleError}</span>}
+          {titleError && (
+            <span className="text-red-400 text-sm mb-2">{titleError}</span>
+          )}
           <div className="flex items-center gap-4">
             <TextField
               placeholder="Bookmark title..."
               value={title}
               onchange={setTitle}
-              classNames={`font-bold w-full ${titleError ? 'border-red-400 border-2' : ''}`}
+              classNames={`font-bold w-full ${titleError ? "border-red-400 border-2" : ""}`}
             />
             <button
               disabled={isScrapping || isSaving}
@@ -96,9 +117,9 @@ export default function Article() {
             </button>
           </div>
           <WSYGIField
-            content={content ?? ''}
+            content={content ?? ""}
             onchange={setContent}
-            classNames={`${content ? 'inline-block' : 'hidden'} w-full mt-4`}
+            classNames={`${content ? "inline-block" : "hidden"} w-full mt-4`}
           />
         </div>
       )}
