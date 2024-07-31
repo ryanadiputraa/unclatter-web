@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { Theme } from "@/context/reducers/main";
 import { setCookie } from "@/lib/storage";
-import { ONE_YEAR_IN_MILISECOND } from "@/utils/constant";
+import { GITHUB_URL, ONE_YEAR_IN_MILISECOND } from "@/utils/constant";
 
 export function Footer({ initialTheme }: { initialTheme: Theme }) {
   const [theme, setTheme] = useState<Theme>(initialTheme);
@@ -24,7 +24,7 @@ export function Footer({ initialTheme }: { initialTheme: Theme }) {
   return (
     <footer className="bg-primary dark:bg-primary-dark py-3 px-[4%] lg:px-6 text-xs sm:text-base flex justify-between items-center border-secondary dark:border-secondary-dark border-t-[0.02rem]">
       <a
-        href="https://devzy.my.id/"
+        href={GITHUB_URL}
         target="_blank"
         referrerPolicy="no-referrer"
         className="flex items-center gap-3"
